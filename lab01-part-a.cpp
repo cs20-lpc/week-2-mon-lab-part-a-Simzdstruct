@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
+#include <limits>
 
 using namespace std;
 
@@ -36,12 +37,15 @@ int main() {
     } while (userSize > 10);
 
     // TODO: create the dynamic memory
+    dynArr = new string[userSize];
 
     // call the functions
     populate(dynArr, userSize);
     printFoods(dynArr, userSize);
 
     // TODO: release the dynamic memory to avoid a memory leak
+    delete[] dynArr;
+    dynArr = nullptr;
 
     // terminate
     return 0;
@@ -62,6 +66,13 @@ int main() {
 
 void populate(string* arrPtr, const unsigned ARR_SIZE) {
     // TODO
+    for (int i = 0; i < ARR_SIZE; i++) {
+        cout << "Give me an input." << endl;
+        //cin >> arrPtr[i];
+        if (i == 0) cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        
+        getline(cin, arrPtr[i]);
+    }
 }
 
 /*******************************************************************************
@@ -80,4 +91,8 @@ void populate(string* arrPtr, const unsigned ARR_SIZE) {
 
 void printFoods(string* arrPtr, const unsigned ARR_SIZE) {
     // TODO
+    for (unsigned i = 0; i < ARR_SIZE; i++) {
+        cout << "Position " << i+1 << " has value " << arrPtr[i] << " at address " <<
+        &arrPtr[i] << endl;
+    }
 }
